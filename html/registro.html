@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <title>Formulario registro</title>
+</head>
+<body>
+    <div class="container-form">
+        <div class="information">
+            <div class="info-childs">
+                <h2>Registro de sesion</h2>
+            </div>
+        </div>
+        <div class="form-information">
+            <div class="form-information-childs">
+                <h2>Crear una cuenta</h2>
+                <form id="formulario-registro">
+                    <label>
+                        <i class='bx  bx-user'  ></i>
+                        <input type="text" placeholder="Nombres"> 
+                    </label>
+                    <label>
+                        <i class='bx  bx-user'  ></i>
+                        <input type="text" placeholder="Apellidos">
+                    </label>
+                    <label>
+                        <i class='bx  bx-at'  ></i> 
+                        <input type="email" placeholder="Correo electronico">
+                    </label>
+                    <label >
+                        <i class='bx  bx-lock-alt'  ></i> 
+                        <input type="password" placeholder="Contraseña">
+                    </label>
+                    <label>
+                        <i class='bx  bx-calendar-alt'  ></i> 
+                        <input type="date" placeholder="Fecha de nacimiento">
+                    </label>
+                    <label>
+                        <i class='bx  bx-barcode'  ></i> 
+                        <input type="number" placeholder="Codigo promocional">
+                    </label>
+                    <input type="submit" value="Registrarse" class="btn-submit" >
+                    <p>Ya tienes una cuenta creada?</p>
+                    <input type="button" value="Iniciar sesion" class="btn-register" onclick="location.href='inicioSesion.html'">
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
