@@ -66,7 +66,10 @@ body{
 }
 
 #formulario-registro {
-    border:  solid black;
+    background :#E0F6FF ;
+    width: 350px;
+    padding: 25px;
+    border-radius: 15px;
     margin: 30px 0 0 0;
 }
 

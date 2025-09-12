@@ -13,15 +13,21 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .container {
+    
     display: grid;
-    grid-template-columns: 1fr 4fr;
+    grid-template-columns: 200fr 1fr;
     background-color:#FFF5E1 ;
+ 
+    
 }
 button, input {
     color:#FFC0CB ;
 }
-body {
+html, body {
+    height: 100%;
     margin: 0;
+    display: flex;
+    flex-direction: column;
 }
 a {
     text-decoration: none;
@@ -30,7 +36,7 @@ a {
 
 header {
     display: flex;
-    
+    top: 0;
     height: 30px;
     justify-content: space-between;
     background-color: #806836;
@@ -51,19 +57,126 @@ header {
 nav a {
     font-weight: 600;
     padding-right: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+
 }
 
-.main {
+main {
     padding: 70px 20px;
     margin-top: 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    border:  solid thin red;
+    flex: 1;
 }
 .main img {
     height: 40px;
 }
 
-.footer {
-    background-color:#665021 ;
+.logo {
+    font-weight: 400;
+    font-size: 1.4rem;
+}
+
+.titulo-catalogo {
+    font-size: 40px;
+    margin-top: -80px;
+    margin-left: 1200px;
+    margin-right: 4rem;
+    width: 100%;
+}
+
+.contenedor-productos {
+   
+    display: grid;
+    grid-template-columns: repeat(4,5fr);
+    gap: 1rem;
+  
+}
+
+.producto-imagen {
+    position: relative;
+    left: 0;
+    width: 228px;
+    height: 130px;
+    border-top-right-radius: 1rem;
+    border-top-left-radius: 1rem;
+}
+
+.producto-informacion {
+    background-color:#AA9364 ;
+    padding: .5rem;
+    margin-top: -.4rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: -100rem;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+
+}
+
+.producto-titulo {
+    font-size: 1rem;
+}
+
+.producto-agregar {
+    border: 0;
+    background-color: #FFF5E1;
+    padding: .4rem;
+    text-transform: uppercase;
+    border-radius: 1rem;
+    cursor: pointer;
+    border: 2px solid #D5C3A0;
+    transition: background-color .3s, color .3s;
+}
+
+.producto-agregar:hover {
+    background-color: #D5C3A0;
+    color: white;
+}
+
+.numerito {
+    background-color: #FFC0CB;
+    color: #665021;
+    padding: .15 .25rem;
+    border-radius: .25rem ;
+}
+aside {
+    border: solid thin #665021 ;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    padding-left: 25px;
+    padding-right: 25px;
+    background-color: #D5C3A0;
+}
+
+
+footer {
+    width: 100%;                /* ocupa todo el ancho */
+    background-color: #f8f8f8;  /* pon el color que quieras */
+    text-align: center;         /* centra el texto */
+    padding: 15px;
+    margin-top: auto;
+}
+
+#btn-limpiar {
+    border: 0;
+    background-color: #FFF5E1;
+    padding: .4rem;
+    text-transform: uppercase;
+    border-radius: 1rem;
+    cursor: pointer;
+    border: 2px solid #D5C3A0;
+    transition: background-color .3s, color .3s;
+
+}
+
+#btn-limpiar:hover {
+    background-color: #D5C3A0;
+    color: white;
+
 }

@@ -1,0 +1,100 @@
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: "Pacifico", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url(../img/patron-cupcake_926375-16.jpg);
+    background-size: cover;
+    background-color: #fff5e1;
+    
+}
+
+.container-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 900px;
+    height: 500px;
+    border: #806736 2px solid;
+    border-radius: 20px;
+    margin: 20px;
+    background-color: #E0F6FF;
+    border: solid thin black;
+}
+
+.information {
+    width: auto;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color:#806736 ;
+    color: white;
+    border-radius: 15px 15px 0 0;
+   
+}
+
+.btn-submit {
+    background-color: transparent;
+    outline: none;
+    border: solid 2px #806736;
+    border-radius: 20px;
+    padding: 3px 10px;
+    cursor: pointer;
+}
+.btn-submit:hover {
+    background-color: #806736;
+    color: white;
+    transition: .5s;
+}
+
+#formulario-registro {
+    background :#E0F6FF ;
+    width: 350px;
+    padding: 25px;
+    border-radius: 15px;
+    margin: 30px 0 0 0;
+}
+
+#formulario-registro label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    border: solid thin red;
+    
+
+}
+
+.form-information-childs h2 {
+    text-align: center;
+}
+
+#formulario-inicioSesion {
+    display: flex;
+    flex-direction: column;
+    background :#E0F6FF ;
+    width: 350px;
+    padding: 25px;
+    border-radius: 15px;
+    margin: 30px 0 0 0;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
