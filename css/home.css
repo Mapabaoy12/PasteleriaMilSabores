@@ -109,7 +109,8 @@ a {
 .cont-productos-destacados {
     display: grid;
     grid-template-columns: repeat(4,1fr);
-    gap: 1rem;
+    gap: 5rem;
+    margin: 30px;
 }
 
 .producto-imagen {
