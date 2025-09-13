@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pastelería Mil Sabores</title>
+    <link rel="stylesheet" href="../css/home.css">
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="../img/Captura de pantalla_10-9-2025_0555_campusvirtual.duoc.cl.jpeg" alt="logo">
+            <h2 class="nombre-empresa">Pasteleria</h2>
+        </div>
+            <nav class="nav-main">
+                <a href="home.html">Home</a>
+                <a href="catalogo.html">Productos</a>
+                <a href="blog.html">Blog<html></html></a>
+                <a href="#contacto">Contactanos</a>
+            </nav>
+            <nav class="nav-login">
+                <a href="carro.html"><i class='bx  bx-cart'  ></i><span class="numerito">0</span> </a>
+                <a href="inicioSesion.html">Iniciar Sesion</a>
+                <a href="registro.html">Registrar Sesion</a>
+            </nav>
+    </header>
+
+    <section class="bloque-principal">
+        <div>
+            <h1 class="titulo-home">Pastelería Mil Sabores</h1>
+            <p class="subtitulo">Descubre, saborea y crea momentos inolvidables con nosotros</p>
+            <button class="btn-catalogo" onclick="location.href='catalogo.html'">Ver productos</button>
+        </div>
+        <div class="imagen-home">
+            <img src="../img/Captura de pantalla_10-9-2025_0555_campusvirtual.duoc.cl.jpeg">
+        </div>
+    </section>
+
+    <section class="productos-destacados">
+        <h2 class="titulo-destacados">Productos destacados</h2>
+        <div id="contenedor-pd" class="cont-productos-destacados"></div>
+    </section>
+    <script src="../js/productosHome.js" defer></script>
+</body>
+</html>

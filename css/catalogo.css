@@ -122,6 +122,13 @@ main {
     font-size: 1rem;
 }
 
+.producto-precio {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
 .producto-agregar {
     border: 0;
     background-color: #FFF5E1;
@@ -156,11 +163,14 @@ aside {
 
 
 footer {
+    position: fixed;     /* Fijo en la parte inferior */
+    bottom: 0;           /* pegado al fondo */
     width: 100%;                /* ocupa todo el ancho */
-    background-color: #f8f8f8;  /* pon el color que quieras */
+    background-color: #806836;  /* pon el color que quieras */
     text-align: center;         /* centra el texto */
-    padding: 15px;
+    padding: 10px;
     margin-top: auto;
+    height: 30px;
 }
 
 #btn-limpiar {
