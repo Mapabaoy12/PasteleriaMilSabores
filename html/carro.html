@@ -12,7 +12,7 @@
     <header>
         <h1 class="logo">Pasteleria Mil Sabores</h1>
             <nav class="nav-main">
-                <a href="index.html">Inicio</a>
+                <a href="home.html">Home</a>
                 <a href="catalogo.html">Catálogo</a>
                 <a href="blog.html">Nosotros</a>
               
@@ -27,8 +27,8 @@
         <main>
             <h2 class="titulo-carro">Carrito</h2>
             <div class="contenedor-carro">
-                <p class="carro-vacio">No se encuentra ningún producto agregado</p>
-                <div class="carro-productos disabled">
+                <p id="carro-vacio" class="carro-vacio">No se encuentra ningún producto agregado</p>
+                <div id="carro-productos" class="carro-productos disabled">
                     <div class="carrito-producto">
                         <img class="carro-img" src="../img/empolvados.jpg" alt="Empolvados">
                         <div class="carro-producto-titulo">
@@ -50,7 +50,7 @@
                         <button class="carro-producto-eliminar"><i class='bx  bx-trash'  ></i> </i> </button>
                     </div>
                 </div>
-                <div class="carro-opciones disabled">
+                <div id="carro-opciones" class="carro-opciones disabled">
                     <div class="carro-opciones-izquierda">
                         <button class="carro-acciones-v">Vaciar carro</button>
                     </div>
@@ -62,13 +62,14 @@
                         <button class="carro-acciones-comprar">Comprar</button>
                     </div>
                 </div>
-                <p class="carro-comprado disabled">¡Muchas gracias por su compra!</p>
+                <p id="carro-comprado" class="carro-comprado disabled">¡Muchas gracias por su compra!</p>
             </div>
         </main>
     </div>
     <footer>
             <p class="texto-footer">© 2025 Pastelería Mil Sabores</p>
     </footer>
+<script src="../js/carro.js" defer></script>
     
 </body>
 </html>
