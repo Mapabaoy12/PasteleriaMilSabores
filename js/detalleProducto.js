@@ -1,6 +1,13 @@
+const parametro = new URLSearchParams(window.location.search);
+const idProducto = parametro.get('id');
+const productos = JSON.parse(localStorage.getItem("productos"))  || [];
+const producto = productos.find(producto => producto.id == idProducto);
+const contenedorDetalle = document.querySelector("#contenedor-d");
 
-const productos = [
-    {
+//Tuve que hacer esto ya que no estamos trabajando con base de datos para tener todos los productos en todo momento y no craneo un metodo mas eficiente la verdad.
+if (!localStorage.getItem("productos")) {
+    localStorage.setItem("productos", JSON.stringify([
+        {
         id:1,
         titulo: "Torta1",
         imagen : "../img/circulares/tortacircular1.webp",
@@ -188,114 +195,52 @@ const productos = [
         precio : 4990,
         descripcion :  "mish"
 
-    },
-    
-]
-
-localStorage.setItem("productos", JSON.stringify(productos)); //Guardamos el catalogo completo de productos dentro del localStorage para tener facilidad al ocuparlo en detalle producto
-
-const contenedorProductos = document.querySelector
-("#contenedor-p")
-const botonesFiltro = document.querySelectorAll(".botones-filtro")
-
-let botonesAgregar = document.querySelectorAll(".producto-agregar");
-
-const numerito = document.querySelector("#numerito")
-
-function cargarProductos(lista = productos) {
-    contenedorProductos.innerHTML = "";
-    lista.forEach(producto => {
-        const div = document.createElement("div");
-        div.classList.add("producto");
-        div.innerHTML = `
-            <img class="producto-imagen" src="${producto.imagen}" alt="${producto.titulo}" onclick="window.location.href='detalleProducto.html?id=${producto.id}'">
-            <div class="producto-informacion">
-                <h3 class="producto-titulo">${producto.titulo}</h3>
-                <p class="producto-precio">$${producto.precio} c/u</p>
-                <button class="producto-agregar" id="${producto.id}">Agregar</button>
-            </div>
-        `;
-        contenedorProductos.append(div);
-    });
-    actualizarBotonesAgregar();
-}
-
-
-cargarProductos();
-
-botonesFiltro.forEach(boton => { 
-    boton.addEventListener("click", (e) => {
-        const forma = e.currentTarget.dataset.forma;
-        const tamanio = e.currentTarget.dataset.tamanio;
-
-        let filtrados = productos;
-
-        if (forma) {
-            filtrados = filtrados.filter(p => p.forma === forma);
-        }
-
-        if (tamanio) {
-            filtrados = filtrados.filter(p => p.tamanio === tamanio);
-        }
-
-        cargarProductos(filtrados);
-    });
-});
-
-const btnLimpiar = document.querySelector("#btn-limpiar");
-
-btnLimpiar.addEventListener("click", () => {
-    // desmarcar todos los checkboxes
-    document.querySelectorAll(".filtros input[type='checkbox']").forEach(chk => {
-        chk.checked = false;
-    });
-
-    // recargar todos los productos
-    cargarProductos(productos);
-});
-
-function actualizarBotonesAgregar() {
-    botonesAgregar = document.querySelectorAll(".producto-agregar");
-
-    botonesAgregar.forEach(boton => (
-        boton.addEventListener("click", agregarAlCarrito)
-    ));
-
-};
-
-let productosEnCarrito;
-
-let productosEnCarritoLS = localStorage.getItem("productos-en-carrito");
-
-if (productosEnCarritoLS) {
-    productosEnCarrito = JSON.parse(productosEnCarritoLS);
-    actualizarNumerito();
-} else {
-    productosEnCarrito = [];
-};
-
-
-function agregarAlCarrito(e){
-
-    const idBoton = parseInt(e.currentTarget.id);
-    const productoAgregado = productos.find(producto => producto.id === idBoton
-    );
-    if(productosEnCarrito.some(producto => producto.id === idBoton )){
-    const index = productosEnCarrito.findIndex(producto => producto.id === idBoton);
-    productosEnCarrito[index].cantidad++;
-    } else {
-    productoAgregado.cantidad = 1;
-    productosEnCarrito.push(productoAgregado);
     }
-    console.log(productosEnCarrito);
-
-    actualizarNumerito();
-
-    localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito)); //local store asi bien brigido para luego poder seguir en el carrito
-
-};
-
-function actualizarNumerito(){
-    let newNumerito = productosEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0)
-    numerito.innerText = newNumerito;
+    ]));
 }
+
+if (producto) {
+    const div = document.createElement("div");
+    div.classList.add("producto-detalle");
+    div.innerHTML = `
+        <div id="contenedor-imagen-detalle" class="contenedor-producto-detalle">
+            <img src="${producto.imagen}" alt="${producto.titulo}">
+        </div>
+        <div id="contenedor-detalle-p" class="contenedor-producto-detalle">
+            <div id="titulo-precio-d">
+                <h2>${producto.titulo}</h2>
+                <h2>$${producto.precio}</h2>
+            </div>
+            <div id="descripcion-p">
+                <p>${producto.descripcion || ''}</p>
+            </div>
+            <div id="btn-carro">
+                <button class="producto-agregar">Agregar</button>
+            </div>
+        </div>
+    `;
+    contenedorDetalle.append(div);
+}else{
+    contenedorDetalle.innerHTML="<p>Producto no encontrado.</p>";
+}
+    
+ 
+
+ /*
+ <div id="contenedor-imagen-detalle" class="contenedor-producto-detalle">
+                <img src="../img/tortaqueso.jpg" alt="Torta queso">
+            </div>
+            <div id="contenedor-detalle-p" class="contenedor-producto-detalle">
+                <div id="titulo-precio-d">
+                    <h2>Nombre producto</h2>
+                    <h2>$10000</h2>
+                </div>
+                <div id="descripcion-p">
+                    <p>mishhh</p>
+                </div>
+                <div id="btn-carro">
+                    <button class="producto-agregar">Agregar</button>
+                </div>
+            </div>
+
+ */
