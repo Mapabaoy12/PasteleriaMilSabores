@@ -5,6 +5,11 @@ h1,h2,h3,h4,h5,h6 {
   font-style: normal;
 }
 
+h2 { 
+    display: flex;
+    align-content: center;
+   
+}
 
 * {
     padding: 0;
@@ -97,4 +102,27 @@ body{
     text-align: center;
     align-items: center;
     justify-content: center;
+}
+
+.form-information-childs {
+   display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.form-information {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+#formulario-inicioSesion label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    border: solid thin red;
+    
+
 }
