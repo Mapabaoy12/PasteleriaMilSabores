@@ -116,25 +116,47 @@ function agregarAlCarrito(e){
     
     // Obtener información de descuentos (funciona con o sin usuario logueado)
     const infoDescuentos = obtenerInfoDescuentos();// Obtener info de descuentos
-    const precioConDescuento = calcularPrecioConDescuento(productoOriginal.precio);// Calcular precio con descuento si aplica
+    
+    // Verificar si es torta gratis de cumpleaños DuocUC
+    let precioConDescuento = calcularPrecioConDescuento(productoOriginal.precio);
+    let esTortaGratisCumpleanos = false;
+    
+    if (infoDescuentos.tortaGratisCumpleanos) {
+        // Confirmar si quiere usar su torta gratis de cumpleaños
+        const confirmar = confirm(`🎂 ¡Feliz Cumpleaños! 🎉\n\n¿Quieres usar tu torta GRATIS de cumpleaños DuocUC en "${productoOriginal.titulo}"?\n\n⚠️ Solo puedes elegir UNA torta gratis por año en tu cumpleaños.`);
+        
+        if (confirmar) {
+            precioConDescuento = 0; // Precio gratis
+            esTortaGratisCumpleanos = true;
+            marcarTortaGratisCumpleanosUsada(); // Marcar como usada
+        }
+    }
     
     // Crear una copia del producto con el precio actualizado si hay descuento
     const productoAgregado = {
         ...productoOriginal,// Copiar todas las propiedades del producto original
         precio: precioConDescuento,// Precio con descuento si aplica
         precioOriginal: productoOriginal.precio,// Precio original sin descuento
-        tieneDescuento: infoDescuentos.tieneDescuento,// Indicar si tiene descuento
-        infoDescuento: infoDescuentos.etiquetas[0] || null// Etiqueta del descuento o null
+        tieneDescuento: infoDescuentos.tieneDescuento || esTortaGratisCumpleanos,// Indicar si tiene descuento
+        infoDescuento: esTortaGratisCumpleanos ? '🎂 TORTA GRATIS Cumpleaños DuocUC' : (infoDescuentos.etiquetas[0] || null),// Etiqueta del descuento
+        esTortaGratisCumpleanos: esTortaGratisCumpleanos// Marcar si es torta gratis de cumpleaños
     };
 
     // Verificar si el producto ya está en el carrito
     if(productosEnCarrito.some(producto => producto.id === idBoton )){
-        const index = productosEnCarrito.findIndex(producto => producto.id === idBoton);// Buscar índice del producto en el carrito
-        productosEnCarrito[index].cantidad++;// Incrementar cantidad
-        // Actualizar el precio del producto existente en caso de que haya cambiado el descuento
-        productosEnCarrito[index].precio = precioConDescuento;// Actualizar precio
-        productosEnCarrito[index].tieneDescuento = infoDescuentos.tieneDescuento;// Actualizar si tiene descuento
-        productosEnCarrito[index].infoDescuento = infoDescuentos.etiquetas[0] || null;// Actualizar etiqueta
+        // Si ya está en el carrito y no es torta gratis de cumpleaños, incrementar cantidad
+        if (!esTortaGratisCumpleanos) {
+            const index = productosEnCarrito.findIndex(producto => producto.id === idBoton);// Buscar índice del producto en el carrito
+            productosEnCarrito[index].cantidad++;// Incrementar cantidad
+            // Actualizar el precio del producto existente en caso de que haya cambiado el descuento
+            productosEnCarrito[index].precio = precioConDescuento;// Actualizar precio
+            productosEnCarrito[index].tieneDescuento = infoDescuentos.tieneDescuento;// Actualizar si tiene descuento
+            productosEnCarrito[index].infoDescuento = infoDescuentos.etiquetas[0] || null;// Actualizar etiqueta
+        } else {
+            // Si es torta gratis de cumpleaños, agregarla como producto separado
+            productoAgregado.cantidad = 1;// Inicializar cantidad
+            productosEnCarrito.push(productoAgregado);// Agregar como producto separado
+        }
     } else {
         productoAgregado.cantidad = 1;// Inicializar cantidad
         productosEnCarrito.push(productoAgregado);// Agregar nuevo producto al carrito

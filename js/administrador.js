@@ -141,16 +141,27 @@ function mostrarGestionProductos() {
 //busca manejar tambien el caso donde el precio es string (ej: "1000 - 2000")
 //contecta con funciones de editarProducto y eliminarProducto
 function generarTarjetasProductos() {
-    return productosAdmin.map(producto => `
+    return productosAdmin.map(producto => {
+        const stockColor = producto.stock <= (producto.stockCritico || 5) ? '#dc3545' : '#28a745';
+        const stockStatus = producto.stock <= (producto.stockCritico || 5) ? '⚠️ Stock Crítico' : '✅ Stock OK';
+        
+        return `
         <div class="producto-card" style="border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin: 10px; background: white;">
-            <img src="${producto.imagen}" alt="${producto.titulo}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 5px;">
+            <img src="${producto.imagen || 'img/default-product.jpg'}" alt="${producto.titulo}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 5px;">
             <h3>${producto.titulo}</h3>
-            <p><strong>ID:</strong> ${producto.id}</p>
-            <p><strong>Forma:</strong> ${producto.forma}</p>
-            <p><strong>Tamaño:</strong> ${producto.tamanio}</p>
-            <p><strong>Stock:</strong> ${producto.stock} unidades</p>
-            <p><strong>Precio:</strong> $${typeof producto.precio === 'string' ? producto.precio : producto.precio.toLocaleString()}</p>
-            <p>${producto.descripcion}</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 14px; margin: 10px 0;">
+                <p><strong>Código:</strong> ${producto.codigo || `COD${producto.id}`}</p>
+                <p><strong>ID:</strong> ${producto.id}</p>
+                <p><strong>Categoría:</strong> ${producto.categoria || 'Sin categoría'}</p>
+                <p><strong>Forma:</strong> ${producto.forma}</p>
+                <p><strong>Tamaño:</strong> ${producto.tamanio}</p>
+                <p><strong>Precio:</strong> $${typeof producto.precio === 'string' ? producto.precio : producto.precio.toLocaleString()}</p>
+            </div>
+            <div style="background: ${stockColor}20; padding: 10px; border-radius: 5px; margin: 10px 0;">
+                <p style="color: ${stockColor}; font-weight: bold; margin: 0;"><strong>Stock:</strong> ${producto.stock} unidades</p>
+                <p style="color: ${stockColor}; font-size: 12px; margin: 5px 0 0 0;">${stockStatus}</p>
+            </div>
+            <p style="margin: 10px 0; font-size: 14px; color: #666;">${producto.descripcion || 'Sin descripción'}</p>
             <div style="display: flex; gap: 10px; margin-top: 10px;">
                 <button onclick="editarProducto(${producto.id})" style="background: #ffc107; border: none; padding: 8px 12px; border-radius: 3px; cursor: pointer;">
                     Editar
@@ -160,7 +171,8 @@ function generarTarjetasProductos() {
                 </button>
             </div>
         </div>
-    `).join('');
+        `;
+    }).join('');
 }
 
 // Función para agregar producto
@@ -181,27 +193,43 @@ function mostrarFormularioProducto(id = null) {
     const contenido = document.getElementById('contenido-principal');
     contenido.innerHTML = `
         <div style="max-width: 600px; margin: 0 auto;">
-            <h1>${esEdicion ? 'Editar' : 'Agregar'} Producto</h1>
+            <h1>${esEdicion ? 'Editar' : 'Nuevo'} Producto</h1>
             <form id="form-producto" style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
                 <div style="margin-bottom: 15px;">
-                    <label>Título:</label>
-                    <input type="text" id="titulo" value="${producto?.titulo || ''}" required style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;">
+                    <label>Código Producto: <span style="color: red;">*</span></label>
+                    <input type="text" id="codigo" value="${producto?.codigo || ''}" required minlength="3" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label>Nombre: <span style="color: red;">*</span></label>
+                    <input type="text" id="nombre" value="${producto?.titulo || ''}" required maxlength="100" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;">
                 </div>
                 <div style="margin-bottom: 15px;">
                     <label>Descripción:</label>
-                    <textarea id="descripcion" required style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px; height: 80px;">${producto?.descripcion || ''}</textarea>
+                    <textarea id="descripcion" maxlength="500" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px; height: 80px;">${producto?.descripcion || ''}</textarea>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label>Categoría: <span style="color: red;">*</span></label>
+                    <select id="categoria" required style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;">
+                        <option value="">Seleccione una categoría</option>
+                        <option value="tortas-circulares" ${producto?.categoria === 'tortas-circulares' ? 'selected' : ''}>Tortas Circulares</option>
+                        <option value="tortas-cuadradas" ${producto?.categoria === 'tortas-cuadradas' ? 'selected' : ''}>Tortas Cuadradas</option>
+                        <option value="pasteles" ${producto?.categoria === 'pasteles' ? 'selected' : ''}>Pasteles</option>
+                        <option value="postres" ${producto?.categoria === 'postres' ? 'selected' : ''}>Postres</option>
+                        <option value="cupcakes" ${producto?.categoria === 'cupcakes' ? 'selected' : ''}>Cupcakes</option>
+                        <option value="galletas" ${producto?.categoria === 'galletas' ? 'selected' : ''}>Galletas</option>
+                    </select>
                 </div>
                 <div style="display: flex; gap: 15px; margin-bottom: 15px;">
                     <div style="flex: 1;">
                         <label>Forma:</label>
-                        <select id="forma" required style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;">
+                        <select id="forma" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;">
                             <option value="circular" ${producto?.forma === 'circular' ? 'selected' : ''}>Circular</option>
                             <option value="cuadrada" ${producto?.forma === 'cuadrada' ? 'selected' : ''}>Cuadrada</option>
                         </select>
                     </div>
                     <div style="flex: 1;">
                         <label>Tamaño:</label>
-                        <select id="tamanio" required style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;">
+                        <select id="tamanio" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;">
                             <option value="individual" ${producto?.tamanio === 'individual' ? 'selected' : ''}>Individual</option>
                             <option value="familiar" ${producto?.tamanio === 'familiar' ? 'selected' : ''}>Familiar</option>
                             <option value="grande" ${producto?.tamanio === 'grande' ? 'selected' : ''}>Grande</option>
@@ -210,21 +238,28 @@ function mostrarFormularioProducto(id = null) {
                 </div>
                 <div style="display: flex; gap: 15px; margin-bottom: 15px;">
                     <div style="flex: 1;">
-                        <label>Precio:</label>
-                        <input type="number" id="precio" value="${typeof producto?.precio === 'number' ? producto.precio : ''}" required style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;">
+                        <label>Precio: <span style="color: red;">*</span></label>
+                        <input type="number" id="precio" value="${typeof producto?.precio === 'number' ? producto.precio : ''}" required min="0" step="0.01" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;">
+                        <small style="color: #666;">Mínimo: 0 (producto gratuito)</small>
                     </div>
                     <div style="flex: 1;">
-                        <label>Stock:</label>
-                        <input type="number" id="stock" value="${producto?.stock || 10}" required style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;">
+                        <label>Stock: <span style="color: red;">*</span></label>
+                        <input type="number" id="stock" value="${producto?.stock || 10}" required min="0" step="1" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;">
+                        <small style="color: #666;">Solo números enteros</small>
                     </div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label>Stock Crítico:</label>
+                    <input type="number" id="stockCritico" value="${producto?.stockCritico || 5}" min="0" step="1" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;">
+                    <small style="color: #666;">Alerta cuando el stock sea igual o inferior a este valor</small>
                 </div>
                 <div style="margin-bottom: 20px;">
                     <label>URL de Imagen:</label>
-                    <input type="url" id="imagen" value="${producto?.imagen || ''}" required style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;">
+                    <input type="url" id="imagen" value="${producto?.imagen || ''}" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;">
                 </div>
                 <div style="display: flex; gap: 15px;">
                     <button type="submit" style="flex: 1; background: #8B4513; color: white; border: none; padding: 12px; border-radius: 5px; cursor: pointer;">
-                        ${esEdicion ? 'Actualizar' : 'Agregar'} Producto
+                        ${esEdicion ? 'Actualizar' : 'Crear'} Producto
                     </button>
                     <button type="button" onclick="mostrarGestionProductos()" style="flex: 1; background: #6c757d; color: white; border: none; padding: 12px; border-radius: 5px; cursor: pointer;">
                         Cancelar
@@ -243,20 +278,75 @@ function mostrarFormularioProducto(id = null) {
 
 // Guardar producto (agregar o editar)
 function guardarProducto(id = null) {
-    const titulo = document.getElementById('titulo').value;
+    const codigo = document.getElementById('codigo').value;
+    const nombre = document.getElementById('nombre').value;
     const descripcion = document.getElementById('descripcion').value;
+    const categoria = document.getElementById('categoria').value;
     const forma = document.getElementById('forma').value;
     const tamanio = document.getElementById('tamanio').value;
-    const precio = parseInt(document.getElementById('precio').value);
+    const precio = parseFloat(document.getElementById('precio').value);
     const stock = parseInt(document.getElementById('stock').value);
+    const stockCritico = parseInt(document.getElementById('stockCritico').value) || 5;
     const imagen = document.getElementById('imagen').value;
+    
+    // Validaciones adicionales
+    if (codigo.length < 3) {
+        alert('❌ El código del producto debe tener al menos 3 caracteres');
+        return;
+    }
+    
+    if (nombre.length > 100) {
+        alert('❌ El nombre del producto no puede exceder 100 caracteres');
+        return;
+    }
+    
+    if (descripcion.length > 500) {
+        alert('❌ La descripción no puede exceder 500 caracteres');
+        return;
+    }
+    
+    if (precio < 0) {
+        alert('❌ El precio no puede ser negativo');
+        return;
+    }
+    
+    if (stock < 0) {
+        alert('❌ El stock no puede ser negativo');
+        return;
+    }
+    
+    if (stockCritico < 0) {
+        alert('❌ El stock crítico no puede ser negativo');
+        return;
+    }
+    
+    // Verificar código único al crear
+    if (!id && productosAdmin.find(p => p.codigo === codigo)) {
+        alert('❌ Ya existe un producto con ese código');
+        return;
+    }
+    
+    // Verificar código único al editar (excepto el producto actual)
+    if (id && productosAdmin.find(p => p.codigo === codigo && p.id !== id)) {
+        alert('❌ Ya existe un producto con ese código');
+        return;
+    }
     
     if (id) {
         // Editar producto existente
         const index = productosAdmin.findIndex(p => p.id === id);
         productosAdmin[index] = {
             ...productosAdmin[index],
-            titulo, descripcion, forma, tamanio, precio, stock, imagen
+            codigo,
+            titulo: nombre,
+            descripcion,
+            categoria,
+            forma,
+            tamanio,
+            precio,
+            stock,
+            stockCritico,
+            imagen
         };
         alert('✅ Producto actualizado correctamente');
     } else {
@@ -264,10 +354,19 @@ function guardarProducto(id = null) {
         const nuevoId = Math.max(...productosAdmin.map(p => p.id)) + 1;
         const nuevoProducto = {
             id: nuevoId,
-            titulo, descripcion, forma, tamanio, precio, stock, imagen
+            codigo,
+            titulo: nombre,
+            descripcion,
+            categoria,
+            forma,
+            tamanio,
+            precio,
+            stock,
+            stockCritico,
+            imagen
         };
         productosAdmin.push(nuevoProducto);
-        alert('✅ Producto agregado correctamente');
+        alert('✅ Producto creado correctamente');
     }
     
     guardarProductos();

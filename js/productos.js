@@ -1,4 +1,24 @@
 
+// Función para verificar si es el cumpleaños del usuario
+function esElCumpleanosDelUsuario(usuario) {
+    if (!usuario.fechaNacimiento) return false;
+    
+    const hoy = new Date();
+    const fechaNacimiento = new Date(usuario.fechaNacimiento);
+    
+    return hoy.getDate() === fechaNacimiento.getDate() && 
+           hoy.getMonth() === fechaNacimiento.getMonth();
+}
+
+// Función para verificar si el usuario ya usó su torta gratis de cumpleaños este año
+function yaUsoTortaGratisCumpleanos(usuario) {
+    const hoy = new Date();
+    const añoActual = hoy.getFullYear();
+    
+    return usuario.tortaGratisCumpleanosUsada && 
+           usuario.añoTortaGratisCumpleanos === añoActual;
+}
+
 // Función para obtener información de descuentos del usuario actual
 function obtenerInfoDescuentos() {
     const usuario = JSON.parse(localStorage.getItem('usuarioLogueado'));
@@ -6,19 +26,22 @@ function obtenerInfoDescuentos() {
         tieneDescuento: false, 
         porcentajeDescuento: 0,
         etiquetas: [],
-        descuentos: []
+        descuentos: [],
+        tortaGratisCumpleanos: false
     };
 
     let descuentos = [];
     let descuentoTotal = 0;
     let etiquetas = [];
+    let tortaGratisCumpleanos = false;
 
-    // TORTAS GRATIS PARA DUOCUC (MÁXIMA PRIORIDAD - 100% descuento)
-    if (usuario.esDuocUC === true && usuario.tortasGratis === true) {
+    // TORTA GRATIS PARA DUOCUC EN CUMPLEAÑOS (MÁXIMA PRIORIDAD - solo una vez al año)
+    if (usuario.esDuocUC === true && esElCumpleanosDelUsuario(usuario) && !yaUsoTortaGratisCumpleanos(usuario)) {
+        tortaGratisCumpleanos = true;
         descuentos.push({ 
-            tipo: 'duocuc', 
+            tipo: 'cumpleanos_duocuc', 
             porcentaje: 100, 
-            etiqueta: '🎓 GRATIS DuocUC' 
+            etiqueta: '� TORTA GRATIS Cumpleaños DuocUC' 
         });
     }
     // Descuento por edad (50% - prioritario si no es DuocUC)
@@ -47,7 +70,8 @@ function obtenerInfoDescuentos() {
         tieneDescuento: descuentos.length > 0,
         porcentajeDescuento: descuentoTotal,
         etiquetas: etiquetas,
-        descuentos: descuentos
+        descuentos: descuentos,
+        tortaGratisCumpleanos: tortaGratisCumpleanos
     };
 }
 
@@ -67,18 +91,61 @@ function calcularPrecioConDescuento(precioOriginal) {
     return precioOriginal;
 }
 
+// Función para marcar que el usuario usó su torta gratis de cumpleaños
+function marcarTortaGratisCumpleanosUsada() {
+    const usuario = JSON.parse(localStorage.getItem('usuarioLogueado'));
+    if (usuario) {
+        const hoy = new Date();
+        usuario.tortaGratisCumpleanosUsada = true;
+        usuario.añoTortaGratisCumpleanos = hoy.getFullYear();
+        usuario.fechaUsoTortaGratis = hoy.toISOString();
+        
+        // Actualizar usuario logueado
+        localStorage.setItem('usuarioLogueado', JSON.stringify(usuario));
+        
+        // Actualizar en la lista de usuarios
+        const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+        const index = usuarios.findIndex(u => u.email === usuario.email);
+        if (index !== -1) {
+            usuarios[index] = usuario;
+            localStorage.setItem('usuarios', JSON.stringify(usuarios));
+        }
+    }
+}
+
+// Función para verificar si puede aplicar torta gratis de cumpleaños a un producto específico
+function puedeAplicarTortaGratisCumpleanos() {
+    const info = obtenerInfoDescuentos();
+    return info.tortaGratisCumpleanos;
+}
+
 // Función para obtener el texto del precio con indicador de descuento
 function obtenerTextoPrecionConDescuento(precioOriginal) {
     const info = obtenerInfoDescuentos();
     if (info.tieneDescuento) {
         const precioConDescuento = calcularPrecioConDescuento(precioOriginal);
-        return `
-            <div class="precio-con-descuento">
-                <span class="precio-original">$${precioOriginal}</span>
-                <span class="precio-descuento">$${precioConDescuento}</span>
-                <span class="etiqueta-descuento">${info.etiquetas[0]}</span>
-            </div>
-        `;
+        let textoDescuento = '';
+        
+        if (info.tortaGratisCumpleanos) {
+            textoDescuento = `
+                <div class="precio-con-descuento cumpleanos">
+                    <span class="precio-original">$${precioOriginal}</span>
+                    <span class="precio-gratis">¡GRATIS!</span>
+                    <span class="etiqueta-descuento cumpleanos">${info.etiquetas[0]}</span>
+                    <small class="aviso-cumpleanos">⚠️ Solo una torta gratis por cumpleaños</small>
+                </div>
+            `;
+        } else {
+            textoDescuento = `
+                <div class="precio-con-descuento">
+                    <span class="precio-original">$${precioOriginal}</span>
+                    <span class="precio-descuento">$${precioConDescuento}</span>
+                    <span class="etiqueta-descuento">${info.etiquetas[0]}</span>
+                </div>
+            `;
+        }
+        
+        return textoDescuento;
     }
     return `$${precioOriginal}`;
 }
