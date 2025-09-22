@@ -123,7 +123,7 @@ function agregarAlCarrito(e){
     
     if (infoDescuentos.tortaGratisCumpleanos) {
         // Confirmar si quiere usar su torta gratis de cumpleaños
-        const confirmar = confirm(`🎂 ¡Feliz Cumpleaños! 🎉\n\n¿Quieres usar tu torta GRATIS de cumpleaños DuocUC en "${productoOriginal.titulo}"?\n\n⚠️ Solo puedes elegir UNA torta gratis por año en tu cumpleaños.`);
+        const confirmar = confirm(`¡Feliz Cumpleaños! \n\n¿Quieres usar tu torta GRATIS de cumpleaños DuocUC en "${productoOriginal.titulo}"?\n\n Solo puedes elegir UNA torta gratis por año en tu cumpleaños.`);
         
         if (confirmar) {
             precioConDescuento = 0; // Precio gratis
@@ -138,7 +138,7 @@ function agregarAlCarrito(e){
         precio: precioConDescuento,// Precio con descuento si aplica
         precioOriginal: productoOriginal.precio,// Precio original sin descuento
         tieneDescuento: infoDescuentos.tieneDescuento || esTortaGratisCumpleanos,// Indicar si tiene descuento
-        infoDescuento: esTortaGratisCumpleanos ? '🎂 TORTA GRATIS Cumpleaños DuocUC' : (infoDescuentos.etiquetas[0] || null),// Etiqueta del descuento
+        infoDescuento: esTortaGratisCumpleanos ? ' TORTA GRATIS Cumpleaños DuocUC' : (infoDescuentos.etiquetas[0] || null),// Etiqueta del descuento
         esTortaGratisCumpleanos: esTortaGratisCumpleanos// Marcar si es torta gratis de cumpleaños
     };
 
@@ -175,17 +175,17 @@ function agregarAlCarrito(e){
 
 // Función para obtener información de descuentos del usuario actual
 function mostrarMensajeCarrito(nombreProducto, infoDescuentos) {
-    let mensaje = `✅ "${nombreProducto}" agregado al carrito`;// Mensaje base
+    let mensaje = ` "${nombreProducto}" agregado al carrito`;// Mensaje base
 
     // Verificar si hay descuentos aplicables
     if (infoDescuentos.tieneDescuento) {
-        mensaje += `\n🎉 ${infoDescuentos.etiquetas[0]}`;
+        mensaje += `\n ${infoDescuentos.etiquetas[0]}`;
     }
     
     // Si no hay usuario logueado, mencionar que pueden crear cuenta para descuentos
     const usuario = JSON.parse(localStorage.getItem('usuarioLogueado'));// Obtener usuario logueado
     if (!usuario) {
-        mensaje += '\n💡 ¡Regístrate para acceder a descuentos especiales!';
+        mensaje += '\n ¡Regístrate para acceder a descuentos especiales!';
     }
     
     alert(mensaje);

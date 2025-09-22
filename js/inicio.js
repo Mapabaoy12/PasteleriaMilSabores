@@ -22,7 +22,7 @@
             
             // Mensaje y redirección para administradores (PRIORITARIO)
             if (usuario.esAdministrador) {
-                mensaje += ' 🔐 ¡Bienvenido al Panel de Administración! Accediendo al sistema...';
+                mensaje += '  ¡Bienvenido al Panel de Administración! Accediendo al sistema...';
                 paginaDestino = 'administrador.html';
             }
             // Mensaje especial para usuarios DuocUC

@@ -143,26 +143,26 @@
         
         // Mensaje para profesores DuocUC (PRIORITARIO - acceso administrativo)
         if (esProfesorDuoc) {
-            mensaje += ' 🎓 ¡PROFESOR DUOCUC REGISTRADO! Tendrás acceso completo al panel de administración como profesor. 👨‍🏫✨';
+            mensaje += ' 🎓 ¡PROFESOR DUOCUC REGISTRADO! Tendrás acceso completo al panel de administración como profesor. ';
             redireccion = 'inicioSesion.html';
         }
         // Mensaje para estudiantes DuocUC (beneficio especial de cumpleaños)
         else if (esDuocUC) {
-            mensaje += ' � ¡ESTUDIANTE DUOCUC DETECTADO! 🎂 En tu cumpleaños podrás elegir UNA torta completamente GRATIS del catálogo. ¡Felicidades! 🍰✨';
+            mensaje += ' � ¡ESTUDIANTE DUOCUC DETECTADO!  En tu cumpleaños podrás elegir UNA torta completamente GRATIS del catálogo. ¡Felicidades! ';
         }
         // Mensaje para usuarios generales de Gmail
         else if (esUsuarioGeneral) {
-            mensaje += ' 📧 ¡Bienvenido cliente! Tu cuenta ha sido creada exitosamente.';
+            mensaje += '  ¡Bienvenido cliente! Tu cuenta ha sido creada exitosamente.';
         }
         
         // Mensaje adicional para usuarios mayores de 50 años
         if (edad && edad > 50) {
-            mensaje += ' 🎂 Como cliente especial mayor de 50 años, tendrás acceso a descuentos especiales.';
+            mensaje += '  Como cliente especial mayor de 50 años, tendrás acceso a descuentos especiales.';
         }
         
         // Mensaje para código promocional
         if (codigoPromocional && codigoPromocional.toUpperCase() === 'FELICES50') {
-            mensaje += ' 🎁 ¡Código promocional aplicado! Tendrás un 10% de descuento en todos los productos.';
+            mensaje += '  ¡Código promocional aplicado! Tendrás un 10% de descuento en todos los productos.';
         }
 
         mensaje += ' Ahora puedes iniciar sesión.';

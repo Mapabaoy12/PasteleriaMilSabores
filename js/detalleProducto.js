@@ -81,7 +81,7 @@ function agregarAlCarritoDetalle(productoOriginal) {
     
     if (infoDescuentos.tortaGratisCumpleanos) {
         // Confirmar si quiere usar su torta gratis de cumpleaños
-        const confirmar = confirm(`🎂 ¡Feliz Cumpleaños! 🎉\n\n¿Quieres usar tu torta GRATIS de cumpleaños DuocUC en "${productoOriginal.titulo}"?\n\n⚠️ Solo puedes elegir UNA torta gratis por año en tu cumpleaños.`);
+        const confirmar = confirm(` ¡Feliz Cumpleaños! \n\n¿Quieres usar tu torta GRATIS de cumpleaños DuocUC en "${productoOriginal.titulo}"?\n\n Solo puedes elegir UNA torta gratis por año en tu cumpleaños.`);
         
         if (confirmar) {
             precioConDescuento = 0; // Precio gratis
@@ -96,7 +96,7 @@ function agregarAlCarritoDetalle(productoOriginal) {
         precio: precioConDescuento,// Precio con descuento si aplica
         precioOriginal: productoOriginal.precio,// Precio original sin descuento
         tieneDescuento: infoDescuentos.tieneDescuento || esTortaGratisCumpleanos,// Indicar si tiene descuento
-        infoDescuento: esTortaGratisCumpleanos ? '🎂 TORTA GRATIS Cumpleaños DuocUC' : (infoDescuentos.etiquetas[0] || null),// Etiqueta del descuento
+        infoDescuento: esTortaGratisCumpleanos ? ' TORTA GRATIS Cumpleaños DuocUC' : (infoDescuentos.etiquetas[0] || null),// Etiqueta del descuento
         esTortaGratisCumpleanos: esTortaGratisCumpleanos// Marcar si es torta gratis de cumpleaños
     };
     
@@ -118,7 +118,7 @@ function agregarAlCarritoDetalle(productoOriginal) {
     
     // Mostrar mensaje de confirmación apropiado
     if (esTortaGratisCumpleanos) {
-        alert('🎂 ¡Felicidades! Tu torta GRATIS de cumpleaños ha sido agregada al carrito. ¡Disfrútala! 🎉');
+        alert(' ¡Felicidades! Tu torta GRATIS de cumpleaños ha sido agregada al carrito. ¡Disfrútala! ');
     } else {
         alert('Producto agregado al carrito');// Mensaje simple, se puede mejorar con un modal o notificación
     }

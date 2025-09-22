@@ -40,7 +40,7 @@ function mostrarDashboardVendedor() {
     const usuarioLogueado = JSON.parse(localStorage.getItem('usuarioLogueado'));
     
     const contenido = `
-        <h2 class="titulo-administrador">👨‍💼 Panel de Vendedor</h2>
+        <h2 class="titulo-administrador"> Panel de Vendedor</h2>
         <div class="dashboard-stats">
             <div class="stat-card">
                 <i class='bx bx-user'></i>
@@ -76,7 +76,7 @@ function mostrarGestionProductos() {
     document.getElementById('nav-productos').classList.add('active');
     
     const contenido = `
-        <h2 class="titulo-administrador">🛍️ Gestión de Productos</h2>
+        <h2 class="titulo-administrador"> Gestión de Productos</h2>
         <div class="productos-header">
             <h3>Lista de productos</h3>
             <button class="btn-agregar" onclick="abrirModalProducto()">
@@ -186,11 +186,11 @@ document.getElementById('formProducto').addEventListener('submit', function(e) {
     if (editandoIndice >= 0) {
         // Editando producto existente
         productos[editandoIndice] = { ...productos[editandoIndice], ...nuevoProducto };
-        alert('✅ Producto actualizado exitosamente');
+        alert(' Producto actualizado exitosamente');
     } else {
         // Agregando nuevo producto
         productos.push(nuevoProducto);
-        alert('✅ Producto agregado exitosamente');
+        alert(' Producto agregado exitosamente');
     }
     
     localStorage.setItem('productos', JSON.stringify(productos));
@@ -210,7 +210,7 @@ function eliminarProducto(indice) {
     if (confirm(`¿Estás seguro de que quieres eliminar "${producto.titulo}"?`)) {
         productos.splice(indice, 1);
         localStorage.setItem('productos', JSON.stringify(productos));
-        alert('🗑️ Producto eliminado exitosamente');
+        alert(' Producto eliminado exitosamente');
         mostrarGestionProductos();
     }
 }

@@ -291,44 +291,44 @@ function guardarProducto(id = null) {
     
     // Validaciones adicionales
     if (codigo.length < 3) {
-        alert('❌ El código del producto debe tener al menos 3 caracteres');
+        alert(' El código del producto debe tener al menos 3 caracteres');
         return;
     }
     
     if (nombre.length > 100) {
-        alert('❌ El nombre del producto no puede exceder 100 caracteres');
+        alert(' El nombre del producto no puede exceder 100 caracteres');
         return;
     }
     
     if (descripcion.length > 500) {
-        alert('❌ La descripción no puede exceder 500 caracteres');
+        alert(' La descripción no puede exceder 500 caracteres');
         return;
     }
     
     if (precio < 0) {
-        alert('❌ El precio no puede ser negativo');
+        alert(' El precio no puede ser negativo');
         return;
     }
     
     if (stock < 0) {
-        alert('❌ El stock no puede ser negativo');
+        alert(' El stock no puede ser negativo');
         return;
     }
     
     if (stockCritico < 0) {
-        alert('❌ El stock crítico no puede ser negativo');
+        alert(' El stock crítico no puede ser negativo');
         return;
     }
     
     // Verificar código único al crear
     if (!id && productosAdmin.find(p => p.codigo === codigo)) {
-        alert('❌ Ya existe un producto con ese código');
+        alert(' Ya existe un producto con ese código');
         return;
     }
     
     // Verificar código único al editar (excepto el producto actual)
     if (id && productosAdmin.find(p => p.codigo === codigo && p.id !== id)) {
-        alert('❌ Ya existe un producto con ese código');
+        alert(' Ya existe un producto con ese código');
         return;
     }
     
@@ -348,7 +348,7 @@ function guardarProducto(id = null) {
             stockCritico,
             imagen
         };
-        alert('✅ Producto actualizado correctamente');
+        alert(' Producto actualizado correctamente');
     } else {
         // Agregar nuevo producto
         const nuevoId = Math.max(...productosAdmin.map(p => p.id)) + 1;
@@ -366,7 +366,7 @@ function guardarProducto(id = null) {
             imagen
         };
         productosAdmin.push(nuevoProducto);
-        alert('✅ Producto creado correctamente');
+        alert(' Producto creado correctamente');
     }
     
     guardarProductos();
@@ -937,14 +937,14 @@ function guardarUsuario(emailOriginal = null) {
             porcentajeDescuentoPromocional,
             tortasGratis: esDuocUC
         };
-        alert('✅ Usuario actualizado correctamente');
+        alert(' Usuario actualizado correctamente');
     } else {
         // Crear nuevo usuario
         const password = document.getElementById('password').value;
         
         // Verificar si el email ya existe
         if (usuarios.find(u => u.email === email)) {
-            alert('❌ Ya existe un usuario con este email');
+            alert(' Ya existe un usuario con este email');
             return;
         }
         
@@ -963,7 +963,7 @@ function guardarUsuario(emailOriginal = null) {
         };
         
         usuarios.push(nuevoUsuario);
-        alert('✅ Usuario creado correctamente');
+        alert(' Usuario creado correctamente');
     }
     
     localStorage.setItem('usuarios', JSON.stringify(usuarios));
