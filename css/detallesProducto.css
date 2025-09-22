@@ -1,64 +1,327 @@
+/* CSS Básico para Detalles de Producto */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Pacifico&display=swap');
+
 * {
-
-  font-family: "Pacifico", cursive;
-  font-weight: 400;
-  font-style: normal;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
 }
 
-h1,h2,h3,h4,h5,h6 {
-    
-  font-family: "Pacifico", cursive;
-  font-weight: 400;
-  font-style: normal;
+body {
+    background-color: #FFF5E1;
+    padding-bottom: 60px;
 }
 
+/* Header */
 header {
     display: flex;
-    top: 0;
-    height: 30px;
     justify-content: space-between;
-    background-color: #806836;
     align-items: center;
-    padding: 10px;
+    background-color: #8B4513;
+    padding: 10px 20px;
+    height: 70px;
 }
 
 .logo {
     display: flex;
     align-items: center;
+    color: white;
+    font-size: 18px;
 }
 
 .logo img {
-    border-radius: 70px;
     height: 50px;
+    border-radius: 50px;
     margin-right: 10px;
 }
 
 nav a {
-    font-weight: 600;
-    padding-right: 10px;
-    font-size: 1rem;
-    cursor: pointer;
-
+    padding: 0 10px;
+    color: #FFC0CB;
 }
 
-footer img {
-    position: relative;
-    left: 0;
-    width: 228px;
-    height: 130px;
-    border-top-right-radius: 1rem;
-    border-top-left-radius: 1rem;
+nav a:hover {
+    color: white;
 }
 
-main img {
-    position: left;
-    padding-top: 5em;
-    padding-left: 0.5em;
-    width: 400px;
-    border-radius: 1rem;
+/* Contenedor principal */
+.contenedor-principal {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Detalle del producto */
+.producto-detalle {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 30px;
+    border: 1px solid #ddd;
+}
+
+.contenedor-producto-detalle {
+    flex: 1;
+    min-width: 300px;
+}
+
+#contenedor-imagen-detalle img {
+    width: 100%;
+    max-width: 400px;
+    height: 300px;
+    border-radius: 10px;
+    object-fit: cover;
 }
 
 #contenedor-detalle-p {
-    position: right;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 15px;
 }
+
+#titulo-precio-d {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#titulo-precio-d h2:first-child {
+    color: #8B4513;
+    font-size: 28px;
+    margin: 0;
+}
+
+#titulo-precio-d h2:last-child {
+    color: #FFC0CB;
+    font-size: 24px;
+    margin: 0;
+}
+
+#descripcion-p {
+    margin: 15px 0;
+    padding: 15px;
+    background-color: #FFF5E1;
+    border-radius: 8px;
+    border-left: 3px solid #FFC0CB;
+}
+
+#descripcion-p p {
+    color: #666;
+    line-height: 1.5;
+    font-size: 16px;
+    margin: 0;
+}
+
+/* Precios */
+.precio-con-descuento {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.precio-original {
+    font-size: 16px;
+    color: #999;
+    text-decoration: line-through;
+}
+
+.precio-descuento {
+    font-size: 22px;
+    color: #8B4513;
+    font-weight: bold;
+}
+
+.etiqueta-descuento {
+    font-size: 12px;
+    background-color: #8B4513;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    width: fit-content;
+}
+
+/* Botón agregar */
+.producto-agregar {
+    background-color: #FFC0CB;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.producto-agregar:hover {
+    background-color: #8B4513;
+}
+
+/* MEDIA QUERIES PARA RESPONSIVIDAD */
+
+/* Tablets (768px y menos) */
+@media screen and (max-width: 768px) {
+    header {
+        flex-direction: column;
+        height: auto;
+        padding: 15px 10px;
+        gap: 10px;
+    }
+    
+    .logo {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        text-align: center;
+    }
+    
+    nav li {
+        width: 100%;
+    }
+    
+    nav a {
+        padding: 10px 15px;
+        display: block;
+        width: 100%;
+    }
+    
+    .contenedor-producto {
+        flex-direction: column;
+        padding: 20px 15px;
+        gap: 20px;
+    }
+    
+    .contenedor-producto img {
+        width: 100%;
+        max-width: 400px;
+        height: 300px;
+        align-self: center;
+    }
+    
+    #titulo-precio-d {
+        text-align: center;
+    }
+    
+    #titulo-precio-d h2 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+    
+    #titulo-precio-d h3 {
+        font-size: 1.4rem;
+    }
+    
+    .precio-descuento {
+        font-size: 1.3rem;
+    }
+    
+    .etiqueta-descuento {
+        align-self: center;
+        margin-top: 10px;
+    }
+    
+    #descripcion-p {
+        text-align: center;
+        max-width: none;
+    }
+    
+    .producto-agregar {
+        width: 100%;
+        max-width: 300px;
+        align-self: center;
+        padding: 15px 20px;
+        font-size: 1.1rem;
+    }
+}
+
+/* Móviles */
+@media (max-width: 480px) {
+    .contenedor-producto {
+        padding: 15px;
+    }
+    
+    .contenedor-producto img {
+        height: 200px;
+    }
+    
+    #titulo-precio-d h2 {
+        font-size: 18px;
+    }
+    
+    .producto-agregar {
+        padding: 12px;
+        font-size: 14px;
+    }
+}
+
+/* Productos relacionados */
+.productos-relacionados {
+    padding: 30px;
+    background-color: white;
+    margin: 30px 0;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+.productos-relacionados h3 {
+    text-align: center;
+    color: #8B4513;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.productos-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.producto-relacionado {
+    text-align: center;
+    cursor: pointer;
+}
+
+.producto-relacionado img {
+    width: 120px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.producto-relacionado p {
+    color: #8B4513;
+    font-weight: bold;
+    margin: 0;
+    font-size: 14px;
+}
+
+/* Footer */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #554016;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+
+
 

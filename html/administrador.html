@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Pastelería Mil Sabores</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/administrador_nuevo.css">
+    
+</head>
+<body>
+    <aside>
+        <div class="admin-header">
+            <h1>🍰 Admin Panel</h1>
+            <p>Pastelería Mil Sabores</p>
+        </div>
+        <nav class="nav-administrador">
+            <a href="#" onclick="mostrarDashboard()" class="nav-link active" id="nav-dashboard">
+                <i class='bx bx-home'></i>
+                Dashboard
+            </a>
+            <a href="#" onclick="mostrarGestionProductos()" class="nav-link" id="nav-productos">
+                <i class='bx bx-cake'></i>
+                Gestión de Productos
+            </a>
+            <a href="#" onclick="mostrarGestionUsuarios()" class="nav-link" id="nav-usuarios">
+                <i class='bx bx-users'></i>
+                Gestión de Usuarios
+            </a>
+            <a href="contacto.html" class="nav-link">
+                <i class='bx bx-envelope'></i>
+                Contacto
+            </a>
+            <a href="home.html" class="nav-link">
+                <i class='bx bx-store'></i>
+                Volver a la Tienda
+            </a>
+        </nav>
+    </aside>
+
+    <main>
+        <div class="contenedor-contenido-administrador" id="contenido-principal">
+            <!-- El contenido se cargará dinámicamente aquí -->
+        </div>
+    </main>
+
+    <script src="../js/productos.js"></script>
+    <script src="../js/administrador.js"></script>
+</body>
+</html>

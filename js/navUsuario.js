@@ -6,10 +6,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const usuario = JSON.parse(localStorage.getItem('usuarioLogueado'));
 
     if (usuario) {
-        usuarioNav.textContent = `Hola, ${usuario.nombre}`;
+        // Crear enlace clickeable al perfil
+        usuarioNav.innerHTML = `<a href="perfilUsuario.html" style="color: inherit; text-decoration: none;">Hola, ${usuario.nombre}</a>`;
+        usuarioNav.style.cursor = 'pointer';
+        usuarioNav.title = 'Ver mi perfil';
+        
         if (iniciar) iniciar.style.display = 'none';
         if (registrar) registrar.style.display = 'none';
-        if (cerrarSesion) cerrarSesion.style.display = 'inline'; // <-- CAMBIO AQUÍ
+        if (cerrarSesion) cerrarSesion.style.display = 'inline';
     } else {
         usuarioNav.textContent = '';
         if (iniciar) iniciar.style.display = '';
@@ -25,3 +29,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+

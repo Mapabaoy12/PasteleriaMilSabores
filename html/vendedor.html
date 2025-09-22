@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Vendedor - Pastelería Mil Sabores</title>
+    <link rel="stylesheet" href="../css/vendedor.css">
+</head>
+<body>
+    <aside>
+        <div class="admin-header">
+            <h1>🧑‍💼 Panel Vendedor</h1>
+            <p>Pastelería Mil Sabores</p>
+        </div>
+        <nav class="nav-administrador">
+            <a href="#" onclick="mostrarDashboardVendedor()" class="nav-link active" id="nav-dashboard">
+                Mi Información
+            </a>
+            <a href="#" onclick="mostrarGestionProductos()" class="nav-link" id="nav-productos">
+                Gestión de Productos
+            </a>
+            <a href="contacto.html" class="nav-link">
+                Contacto
+            </a>
+            <a href="home.html" class="nav-link">
+                Volver a la Tienda
+            </a>
+        </nav>
+    </aside>
+
+    <main>
+        <div class="contenedor-contenido-administrador" id="contenido-principal">
+            <!-- El contenido se cargará dinámicamente aquí -->
+        </div>
+    </main>
+
+    <!-- Modal para agregar/editar productos -->
+    <div id="modalProducto" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitulo">Agregar Producto</h2>
+            </div>
+            <form id="formProducto">
+                <div class="form-group">
+                    <label for="titulo">Nombre del Producto</label>
+                    <input type="text" id="titulo" name="titulo" required>
+                </div>
+                <div class="form-group">
+                    <label for="precio">Precio</label>
+                    <input type="number" id="precio" name="precio" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="forma">Forma</label>
+                    <select id="forma" name="forma" required>
+                        <option value="">Seleccionar forma</option>
+                        <option value="Circulares">Circular</option>
+                        <option value="Cuadrada">Cuadrada</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tamanio">Tamaño</label>
+                    <select id="tamanio" name="tamanio" required>
+                        <option value="">Seleccionar tamaño</option>
+                        <option value="Pequenia">Pequeña</option>
+                        <option value="Grande">Grande</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="imagen">URL de la Imagen</label>
+                    <input type="text" id="imagen" name="imagen" required>
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Descripción</label>
+                    <textarea id="descripcion" name="descripcion" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="stock">Stock</label>
+                    <input type="number" id="stock" name="stock" min="0" value="10" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-cancelar" onclick="cerrarModal()">Cancelar</button>
+                    <button type="submit" class="btn-guardar">Guardar Producto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script del vendedor -->
+    <script src="../js/vendedor.js"></script>
+</body>
+</html>

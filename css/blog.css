@@ -1,130 +1,145 @@
+/* CSS Básico para Blog */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Pacifico&display=swap');
+
 * {
-    padding: 0;
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
-    font-family: "Lato", sans-serif;
-    font-weight: 400;
+    font-family: 'Lato', sans-serif;
 }
 
+body {
+    background: #FFF5E1;
+    color: #5D4037;
+}
+
+/* Header básico */
 header {
     display: flex;
-    top: 0;
-    height: 70px;
     justify-content: space-between;
-    background-color: #806836;
     align-items: center;
-    padding: 10px;
+    background-color: #806836;
+    padding: 10px 20px;
+    height: 70px;
 }
 
 .logo {
     display: flex;
     align-items: center;
-    font-weight: 400;
-    font-size: 1.4rem;
+    color: white;
+    font-size: 18px;
 }
 
 .logo img {
-    border-radius: 70px;
     height: 50px;
+    border-radius: 50px;
     margin-right: 10px;
 }
 
 nav a {
-    font-weight: 600;
-    padding-right: 10px;
-    font-size: 1rem;
-    cursor: pointer;
-
-}
-
-a {
-    text-decoration: none;
     color: #FFC0CB;
+    text-decoration: none;
+    padding: 0 10px;
 }
 
-html, body {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    background: #FFF5E1;
-    color: #48312a;
+nav a:hover {
+    color: white;
 }
 
-h1,h2,h3,h4,h5,h6 {
-    font-family: "Pacifico", cursive;
-    font-weight: 400;
-    font-style: normal;
-    color: #48312a;
-}
-
+/* Contenido principal */
 .titulo-blog {
-    font-size: 2.5rem;
     text-align: center;
-    margin-bottom: 10px;
+    font-size: 30px;
+    margin: 20px 0 10px;
+    color: #8B4513;
 }
 
 .subtitulo-blog {
-    font-size: 1.2rem;
     text-align: center;
-    margin-bottom: 20px;
+    font-size: 16px;
+    margin-bottom: 30px;
     color: #806836;
 }
 
 .articulos {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
 }
 
 .articulo {
     display: flex;
-    border: solid thin #695630;
-    border-radius: 10px;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
     background: #806836;
-    padding: 40px 30px;
-    margin: 30px;
-    border-style: rounded;
-}
-
-.titulo-articulo {
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-    color: #FFC0CB;
-}
-
-.descripcion-articulo {
-    font-family: 'Lato', sans-serif;
-    font-size: 20px;
-    margin: 15px 0;
-    color: #FFC0CB;
-    max-width: 50%;
-}
-
-.imagen-articulo img{
-    height: 200px;
-    border-radius: 20px;
-}
-
-.btn-articulo {
-    font-family: 'Lato', sans-serif;
-    padding: 10px 20px;
-    background: #FFC0CB;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 10px;
+    border: 1px solid #695630;
+    border-radius: 10px;
+    padding: 30px;
+    margin: 20px 0;
+    gap: 20px;
 }
 
 .formato-texto {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex: 1;
+}
+
+.titulo-articulo {
+    font-size: 22px;
+    color: #FFC0CB;
+    margin-bottom: 15px;
+}
+
+.descripcion-articulo {
+    color: #FFC0CB;
+    font-size: 16px;
+    line-height: 1.4;
+    margin-bottom: 15px;
+}
+
+.btn-articulo {
+    background: #FFC0CB;
+    color: #8B4513;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-articulo:hover {
+    background: #FFB6C1;
+}
+
+.imagen-articulo img {
+    width: 200px;
+    height: 150px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* Responsive básico */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        height: auto;
+        padding: 15px;
+    }
+    
+    .articulo {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .imagen-articulo img {
+        width: 100%;
+        max-width: 300px;
+        height: 200px;
+        margin: 10px 0;
+    }
+    
+    .titulo-articulo {
+        font-size: 20px;
+    }
+    
+    .descripcion-articulo {
+        font-size: 14px;
+    }
 }

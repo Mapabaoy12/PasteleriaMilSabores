@@ -1,0 +1,377 @@
+/* CSS Básico para Perfil de Usuario */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Pacifico&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+}
+
+body {
+    background-color: #FFF5E1;
+    min-height: 100vh;
+    padding-bottom: 60px;
+}
+
+/* Header */
+.header {
+    background-color: #8B4513;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 20px;
+}
+
+.nav-buttons a {
+    color: #FFC0CB;
+    text-decoration: none;
+    margin-left: 15px;
+    padding: 8px 15px;
+    border-radius: 5px;
+}
+
+.nav-buttons a:hover {
+    background-color: #FFC0CB;
+    color: #8B4513;
+}
+        
+/* Contenido principal */
+.main-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.perfil-header {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.perfil-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #FFC0CB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    font-size: 40px;
+    color: white;
+}
+
+.perfil-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.info-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid #ddd;
+}
+
+.info-card h3 {
+    color: #8B4513;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.info-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    background: #FFF5E1;
+    border-radius: 5px;
+    border-left: 3px solid #FFC0CB;
+}
+
+.info-item strong {
+    color: #8B4513;
+}
+        
+/* Beneficios */
+.beneficio-especial {
+    background-color: #d4edda;
+    border: 2px solid #28a745;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.beneficio-duocuc {
+    background-color: #d1ecf1;
+    border-color: #17a2b8;
+}
+
+.beneficio-mayor {
+    background-color: #fff3cd;
+    border-color: #856404;
+}
+
+.beneficio-promocional {
+    background-color: #f8d7da;
+    border-color: #721c24;
+}
+
+.loading {
+    text-align: center;
+    padding: 30px;
+    color: #8B4513;
+    font-size: 18px;
+}
+
+.error {
+    text-align: center;
+    padding: 30px;
+    color: #721c24;
+    background: #f8d7da;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.btn {
+    background-color: #FFC0CB;
+    color: #8B4513;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 5px;
+}
+
+.btn:hover {
+    background-color: #8B4513;
+    color: white;
+}
+        
+/* Historial de compras */
+.historial-card {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.compras-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.compra-item {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.compra-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.compra-info h4 {
+    color: #8B4513;
+    font-size: 16px;
+    margin: 0;
+}
+
+.compra-fecha {
+    color: #666;
+    font-size: 14px;
+    margin: 5px 0 0 0;
+}
+
+.estado-badge {
+    padding: 4px 12px;
+    border-radius: 15px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.producto-compra {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.producto-compra:last-child {
+    border-bottom: none;
+}
+
+.producto-img-small {
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.producto-info-compra {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+
+.producto-nombre {
+    color: #333;
+    font-weight: 500;
+}
+
+.producto-cantidad {
+    color: #666;
+    font-size: 13px;
+}
+
+.producto-precio {
+    color: #8B4513;
+    font-weight: bold;
+}
+
+.compra-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+}
+
+.compra-total {
+    color: #8B4513;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.btn-small {
+    background-color: #FFC0CB;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #333;
+}
+
+.btn-small:hover {
+    background-color: #FFB6C1;
+}
+
+.sin-compras {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    margin: 15px 0;
+}
+
+.sin-compras .btn {
+    background-color: #8B4513;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.sin-compras .btn:hover {
+    background-color: #654321;
+}
+
+/* Footer */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #554016;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+        
+/* Responsive básico */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        padding: 15px;
+    }
+    
+    .nav-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+    
+    .nav-buttons a {
+        text-align: center;
+        padding: 10px;
+    }
+    
+    .main-container {
+        padding: 0 15px;
+    }
+    
+    .perfil-info {
+        grid-template-columns: 1fr;
+    }
+    
+    .compra-header {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .compra-footer {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-container {
+        padding: 0 10px;
+    }
+    
+    .perfil-avatar {
+        width: 80px;
+        height: 80px;
+        font-size: 30px;
+    }
+    
+    .info-card {
+        padding: 15px;
+    }
+    
+    .historial-card {
+        max-height: 300px;
+    }
+    
+    .producto-img-small {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .producto-info-compra {
+        font-size: 13px;
+    }
+}

@@ -1,112 +1,207 @@
 
+// Función para obtener información de descuentos del usuario actual
+function obtenerInfoDescuentos() {
+    const usuario = JSON.parse(localStorage.getItem('usuarioLogueado'));
+    if (!usuario) return { 
+        tieneDescuento: false, 
+        porcentajeDescuento: 0,
+        etiquetas: [],
+        descuentos: []
+    };
+
+    let descuentos = [];
+    let descuentoTotal = 0;
+    let etiquetas = [];
+
+    // TORTAS GRATIS PARA DUOCUC (MÁXIMA PRIORIDAD - 100% descuento)
+    if (usuario.esDuocUC === true && usuario.tortasGratis === true) {
+        descuentos.push({ 
+            tipo: 'duocuc', 
+            porcentaje: 100, 
+            etiqueta: '🎓 GRATIS DuocUC' 
+        });
+    }
+    // Descuento por edad (50% - prioritario si no es DuocUC)
+    else if (usuario.esMayorDe50 === true) {
+        descuentos.push({ tipo: 'edad', porcentaje: 50, etiqueta: '50% OFF Adulto Mayor' });
+    }
+    // Descuento promocional (10% - si no es DuocUC ni +50)
+    else if (usuario.tieneDescuentoPromocional && usuario.porcentajeDescuentoPromocional) {
+        descuentos.push({ 
+            tipo: 'promocional', 
+            porcentaje: usuario.porcentajeDescuentoPromocional, 
+            etiqueta: `${usuario.porcentajeDescuentoPromocional}% OFF ${usuario.nombrePromocion}` 
+        });
+    }
+
+    // Si hay descuentos, aplicar el mayor (no acumulativo para evitar precios negativos)
+    if (descuentos.length > 0) {
+        const mayorDescuento = descuentos.reduce((max, desc) => 
+            desc.porcentaje > max.porcentaje ? desc : max
+        );
+        descuentoTotal = mayorDescuento.porcentaje;
+        etiquetas = [mayorDescuento.etiqueta];
+    }
+
+    return {
+        tieneDescuento: descuentos.length > 0,
+        porcentajeDescuento: descuentoTotal,
+        etiquetas: etiquetas,
+        descuentos: descuentos
+    };
+}
+
+// Función para verificar si el usuario actual tiene descuento de adulto mayor (mantener compatibilidad)
+function usuarioTieneDescuentoAdultoMayor() {
+    const info = obtenerInfoDescuentos();
+    return info.descuentos.some(d => d.tipo === 'edad');
+}
+
+// Función para calcular el precio con descuento si aplica
+function calcularPrecioConDescuento(precioOriginal) {
+    const info = obtenerInfoDescuentos();
+    if (info.tieneDescuento) {
+        const descuento = precioOriginal * (info.porcentajeDescuento / 100);
+        return Math.round(precioOriginal - descuento);
+    }
+    return precioOriginal;
+}
+
+// Función para obtener el texto del precio con indicador de descuento
+function obtenerTextoPrecionConDescuento(precioOriginal) {
+    const info = obtenerInfoDescuentos();
+    if (info.tieneDescuento) {
+        const precioConDescuento = calcularPrecioConDescuento(precioOriginal);
+        return `
+            <div class="precio-con-descuento">
+                <span class="precio-original">$${precioOriginal}</span>
+                <span class="precio-descuento">$${precioConDescuento}</span>
+                <span class="etiqueta-descuento">${info.etiquetas[0]}</span>
+            </div>
+        `;
+    }
+    return `$${precioOriginal}`;
+}
+
 const productos = [
     {
         id:1,
-        titulo: "Torta1",
+        titulo: "Torta Chocolate Especial",
         imagen : "../img/circulares/tortacircular1.webp",
         forma : "Circulares",
         tamanio : "Grande",
         precio : 10000,
-        descripcion :  "mish"
+        descripcion :  "Deliciosa torta de chocolate con cobertura cremosa y decoración elegante",
+        stock: 15
 
     },
      {
         id:2,
-        titulo: "Torta2",
+        titulo: "Torta Celebración",
         imagen : "../img/circulares/tortacircular2.gif",
         forma : "Circulares",
         tamanio :"Grande",
         precio : 7500,
-        descripcion :  "mish"
+        descripcion :  "Torta perfecta para celebraciones especiales con decoración colorida",
+        stock: 12
 
     },
      {
         id:3,
-        titulo: "Torta3",
+        titulo: "Torta Vainilla Premium",
         imagen : "../img/circulares/tortacircular3.jpg",
         forma : "Circulares",
         tamanio :"Grande",
         precio : 7500,
-        descripcion :  "mish"
+        descripcion :  "Suave torta de vainilla con frosting cremoso y frutas frescas",
+        stock: 8
 
     },
     {
         id:4,
-        titulo: "Torta4",
+        titulo: "Torta Red Velvet",
         imagen : "../img/circulares/tortacircular4.webp",
         forma : "Circulares",
         tamanio :"Grande",
         precio : 11990,
-        descripcion :  "mish"
+        descripcion :  "Clásica torta red velvet con queso crema y acabado aterciopelado",
+        stock: 6
 
     },
     {
         id:5,
-        titulo: "Torta5",
+        titulo: "Torta Frutas Tropicales",
         imagen : "../img/circulares/tortacircular5.jpg",
         forma : "Circulares",
         tamanio :"Grande",
         precio : 10000,
-        descripcion :  "mish"
+        descripcion :  "Refrescante torta con frutas tropicales y crema chantilly",
+        stock: 10
 
     },
     {
         id:6,
-        titulo: "Torta6",
+        titulo: "Mini Torta Chocolate",
         imagen : "../img/circulares/tortacircularpeque1.jpeg",
         forma : "Circulares",
         tamanio : "Pequenia",
         precio : 5000,
-        descripcion :  "mish"
+        descripcion :  "Pequeña torta de chocolate ideal para ocasiones íntimas",
+        stock: 20
     },
     {
         id:7,
-        titulo: "Torta7",
+        titulo: "Mini Torta Vainilla",
         imagen : "../img/circulares/tortacircularpeque3.webp",
         forma : "Circulares",
         tamanio :"Pequenia",
         precio : 3490,
-        descripcion :  "mish"
+        descripcion :  "Delicada mini torta de vainilla con decoración sencilla",
+        stock: 25
 
     },
     {
         id:8,
-        titulo: "Torta8",
+        titulo: "Mini Torta Fresa",
         imagen : "../img/circulares/tortacircularpeque5.webp",
         forma : "Circulares",
         tamanio : "Pequenia",
         precio : 4990,
-        descripcion :  "mish"
+        descripcion :  "Mini torta con sabor a fresa y cobertura rosada",
+        stock: 18
 
     },
     {
         id:9,
-        titulo: "Torta9",
+        titulo: "Torta Cuadrada Chocolate",
         imagen : "../img/cuadradas/tortacuadrada1.jpg",
         forma : "Cuadrada",
         tamanio : "Grande",
-        precio : 4990,
-        descripcion :  "mish"
+        precio : 9990,
+        descripcion :  "Elegante torta cuadrada de chocolate con ganache brillante",
+        stock: 7
 
     },
     {
         id:10,
-        titulo: "Torta10",
+        titulo: "Torta Cuadrada Caramelo",
         imagen : "../img/cuadradas/tortacuadrada2.jpg",
         forma : "Cuadrada",
         tamanio :"Grande",
-        precio : 4990,
-        descripcion :  "mish"
+        precio : 8990,
+        descripcion :  "Torta cuadrada con delicioso sabor a caramelo y nueces",
+        stock: 5
 
     },
     {
         id:11,
-        titulo: "Torta11",
+        titulo: "Torta Cuadrada Limón",
         imagen : "../img/cuadradas/tortacuadrada3.jpg",
         forma : "Cuadrada",
         tamanio : "Grande",
-        precio : 4990,
-        descripcion :  "mish"
+        precio : 8500,
+        descripcion :  "Refrescante torta cuadrada de limón con merengue",
+        stock: 12
 
     },
     {
@@ -181,11 +276,11 @@ const productos = [
     },
     {
         id:19,
-        titulo: "Torta9",
+        titulo: "Torta Cuadrada de Chocolate",
         imagen : "../img/cuadradas/tortacuadradapeque6.png",
         forma : "Cuadrada",
         tamanio : "Pequenia",
-        precio : 4990,
+        precio : 45.000,
         descripcion :  "mish"
 
     }

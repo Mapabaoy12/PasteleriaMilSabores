@@ -1,0 +1,242 @@
+/* CSS Básico para Panel de Vendedor */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Pacifico&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+}
+
+body {
+    background-color: #FFF5E1;
+    display: flex;
+}
+
+/* Navegación lateral */
+aside {
+    width: 250px;
+    background-color: #8B4513;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    height: 100vh;
+}
+
+.admin-header {
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #fff;
+    padding-bottom: 20px;
+}
+
+.admin-header h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.nav-administrador a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 15px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+.nav-administrador a:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+
+.nav-administrador a.active {
+    background-color: #FFC0CB;
+    color: #8B4513;
+}
+
+/* Contenido principal */
+main {
+    margin-left: 250px;
+    padding: 20px;
+    width: 100%;
+}
+
+.contenedor-contenido-administrador {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.titulo-administrador {
+    font-family: 'Pacifico', cursive;
+    color: #5D4037;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Productos */
+.productos-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.btn-agregar {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-agregar:hover {
+    background-color: #45a049;
+}
+
+.productos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.producto-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    background: white;
+}
+
+.producto-imagen {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.producto-nombre {
+    font-weight: bold;
+    color: #8B4513;
+    margin: 10px 0 5px;
+}
+
+.producto-precio {
+    font-size: 18px;
+    color: #FFC0CB;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.producto-stock {
+    background: #f0f0f0;
+    padding: 5px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+.producto-acciones {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-accion {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    color: white;
+}
+
+.btn-editar {
+    background-color: #2196F3;
+}
+
+.btn-eliminar {
+    background-color: #f44336;
+}
+
+/* Modal simple */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 500px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #8B4513;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-cancelar {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+    flex: 1;
+}
+
+.btn-guardar {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+    flex: 1;
+}
+
+/* Responsive básico */
+@media (max-width: 768px) {
+    aside {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+    
+    main {
+        margin-left: 0;
+        padding: 10px;
+    }
+    
+    .productos-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil - Pastelería Mil Sabores</title>
+    <link rel="stylesheet" href="../css/perfilUsuario.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <h1>Pastelería Mil Sabores</h1>
+        </div>
+        <nav class="nav-buttons">
+            <a href="home.html">Inicio</a>
+            <a href="catalogo.html">Productos</a>
+            <a href="carro.html">Carrito</a>
+            <a href="contacto.html">Contacto</a>
+            <a href="#" id="cerrar-sesion">Cerrar Sesión</a>
+        </nav>
+    </header>
+
+    <main class="main-container">
+        <div id="perfil-contenido">
+            <!-- El contenido se cargará dinámicamente aquí -->
+        </div>
+        
+        <div class="error" id="error-perfil" style="display: none;">
+            <h3>Error al cargar el perfil</h3>
+            <p>No se encontró información del usuario. Por favor, inicia sesión nuevamente.</p>
+            <button class="btn" onclick="window.location.href='inicioSesion.html'">Ir a Iniciar Sesión</button>
+        </div>
+    </main>
+
+    <script src="../js/perfilUsuario.js"></script>
+</body>
+</html>
