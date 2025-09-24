@@ -1,5 +1,4 @@
-
-
+    // Manejo del formulario de registro
     document.getElementById('formulario-registro').addEventListener('submit', function(e) {
         e.preventDefault();
 
@@ -35,11 +34,11 @@
         }
 
         // Validar dominios de correo permitidos
-        const dominiosPermitidos = ['@duoc.cl', '@profesor.duoc.cl', '@gmail.com'];
+        const dominiosPermitidos = ['@duoc.cl', '@profesor.duoc.cl', '@gmail.com', '@administrador.cl', '@vendedor.cl'];
         const correoValido = dominiosPermitidos.some(dominio => email.toLowerCase().endsWith(dominio));
-        
+       
         if (!correoValido) {
-            alert('Solo se permiten correos con los dominios: @duoc.cl, @profesor.duoc.cl o @gmail.com');
+            alert('Solo se permiten correos con los dominios: @duoc.cl, @profesor.duoc.cl, @gmail.com, @administrador.cl o @vendedor.cl');
             return;
         }
 
@@ -68,10 +67,10 @@
         }
 
         // Crear objeto usuario base
-        const nuevoUsuario = { 
-            nombre, 
-            apellido, 
-            email, 
+        const nuevoUsuario = {
+            nombre,
+            apellido,
+            email,
             password
         };
 
@@ -82,7 +81,27 @@
         }
 
         // Verificar tipo de usuario basado en dominio de correo
-        
+
+        // Verificar si es administrador (correo @administrador.cl)
+        const esAdministrador = email.toLowerCase().endsWith('@administrador.cl');
+        if (esAdministrador) {
+            nuevoUsuario.esAdministrador = true;
+            nuevoUsuario.tipoUsuario = 'administrador';
+            nuevoUsuario.permisos = ['gestion_productos', 'gestion_usuarios', 'reportes', 'dashboard'];
+            nuevoUsuario.fechaRegistroAdmin = new Date().toISOString();
+            nuevoUsuario.nivelAcceso = 'completo';
+        }
+
+        // Verificar si es vendedor (correo @vendedor.cl)
+        const esVendedor = email.toLowerCase().endsWith('@vendedor.cl');
+        if (esVendedor) {
+            nuevoUsuario.esVendedor = true;
+            nuevoUsuario.tipoUsuario = 'vendedor';
+            nuevoUsuario.permisos = ['gestion_productos'];
+            nuevoUsuario.fechaRegistroVendedor = new Date().toISOString();
+            nuevoUsuario.nivelAcceso = 'limitado';
+        }
+       
         // Estudiantes/personal de DuocUC (correo @duoc.cl)
         const esDuocUC = email.toLowerCase().endsWith('@duoc.cl');
         if (esDuocUC) {
@@ -117,7 +136,7 @@
         // Validar y agregar código promocional si se proporcionó
         if (codigoPromocional) {
             nuevoUsuario.codigoPromocional = codigoPromocional;
-            
+        
             // Validar códigos promocionales específicos
             if (codigoPromocional.toUpperCase() === 'FELICES50') {
                 nuevoUsuario.tieneDescuentoPromocional = true;
@@ -140,26 +159,40 @@
 
         let mensaje = '¡Registro exitoso!';
         let redireccion = 'inicioSesion.html';
-        
+
+        // Mensaje para administradores (PRIORITARIO - acceso completo)
+        if (esAdministrador) {
+            mensaje += '¡ADMINISTRADOR REGISTRADO! Tendrás acceso completo al panel de administración.';
+            redireccion = 'inicioSesion.html';
+        }
+        // Mensaje para vendedores (acceso limitado a productos)
+        else if (esVendedor) {
+            mensaje += '¡VENDEDOR REGISTRADO! Tendrás acceso al panel de gestión de productos. Serás redirigido automáticamente.';
+    
+            // Guardar al usuario como logueado automáticamente
+            localStorage.setItem('usuarioLogueado', JSON.stringify(nuevoUsuario));
+            redireccion = 'vendedor.html';
+        }
+    
         // Mensaje para profesores DuocUC (PRIORITARIO - acceso administrativo)
-        if (esProfesorDuoc) {
-            mensaje += ' 🎓 ¡PROFESOR DUOCUC REGISTRADO! Tendrás acceso completo al panel de administración como profesor. ';
+        else if (esProfesorDuoc) {
+            mensaje += '¡PROFESOR DUOCUC REGISTRADO! Tendrás acceso completo al panel de administración como profesor.';
             redireccion = 'inicioSesion.html';
         }
         // Mensaje para estudiantes DuocUC (beneficio especial de cumpleaños)
         else if (esDuocUC) {
-            mensaje += ' � ¡ESTUDIANTE DUOCUC DETECTADO!  En tu cumpleaños podrás elegir UNA torta completamente GRATIS del catálogo. ¡Felicidades! ';
+            mensaje += '¡ESTUDIANTE DUOCUC DETECTADO!  En tu cumpleaños podrás elegir UNA torta completamente GRATIS del catálogo. ¡Felicidades! ';
         }
         // Mensaje para usuarios generales de Gmail
         else if (esUsuarioGeneral) {
             mensaje += '  ¡Bienvenido cliente! Tu cuenta ha sido creada exitosamente.';
         }
-        
+    
         // Mensaje adicional para usuarios mayores de 50 años
         if (edad && edad > 50) {
             mensaje += '  Como cliente especial mayor de 50 años, tendrás acceso a descuentos especiales.';
         }
-        
+    
         // Mensaje para código promocional
         if (codigoPromocional && codigoPromocional.toUpperCase() === 'FELICES50') {
             mensaje += '  ¡Código promocional aplicado! Tendrás un 10% de descuento en todos los productos.';
